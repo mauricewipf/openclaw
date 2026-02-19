@@ -2,17 +2,18 @@ FROM node:22-bookworm@sha256:cd7bcd2e7a1e6f72052feb023c7f6b722205d3fcab7bbcbd2d1
 
 RUN apt-get update && apt-get install -y socat && rm -rf /var/lib/apt/lists/*
 
-# Gmail CLI (gog)
-#RUN curl -L https://github.com/steipete/gog/releases/latest/download/gog_Linux_x86_64.tar.gz \
-#  | tar -xz -C /usr/local/bin && chmod +x /usr/local/bin/gog
+# Gmail CLI (gogcli) – binary is named "gog"
+RUN curl -L https://github.com/steipete/gogcli/releases/download/v0.11.0/gogcli_0.11.0_linux_amd64.tar.gz \
+  | tar -xz -C /usr/local/bin && chmod +x /usr/local/bin/gog
 
 # Google Places CLI (goplaces)
-RUN curl -L https://github.com/steipete/goplaces/releases/latest/download/goplaces_Linux_x86_64.tar.gz \
+RUN curl -L https://github.com/steipete/goplaces/releases/download/v0.3.0/goplaces_0.3.0_linux_amd64.tar.gz \
   | tar -xz -C /usr/local/bin && chmod +x /usr/local/bin/goplaces
 
-# WhatsApp CLI (wacli)
-RUN curl -L https://github.com/steipete/wacli/releases/latest/download/wacli_Linux_x86_64.tar.gz \
-  | tar -xz -C /usr/local/bin && chmod +x /usr/local/bin/wacli
+# WhatsApp CLI (wacli) – no Linux binary available as of v0.2.0 (macOS-only).
+# Uncomment if a Linux release becomes available:
+# RUN curl -L https://github.com/steipete/wacli/releases/latest/download/wacli_linux_amd64.tar.gz \
+#   | tar -xz -C /usr/local/bin && chmod +x /usr/local/bin/wacli
 
 # Install Bun (required for build scripts)
 RUN curl -fsSL https://bun.sh/install | bash
